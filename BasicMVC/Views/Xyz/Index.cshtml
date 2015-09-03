@@ -1,0 +1,55 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+}
+
+@section scripts {
+    <script type="text/javascript">
+        $(document).ready(function () {
+            var students = new Array();
+
+            $.ajax({
+                type: "GET",
+                url: "/Xyz/Abc",
+                dataType: "json",
+                contentType: "application/json; charset=utf-8",
+                success: function (data) {
+                    console.log(data);
+                    students = data.slice();
+
+                    $.each(students, function (index, item) {
+                        $("#table-body").append(
+                            $("<tr></tr>").append(
+                                $("<td></td>")
+                                .text(item.studentId)
+                            ).append(
+                                $("<td></td>")
+                                .text(item.firstName)
+                            ).append(
+                                $("<td></td>")
+                                .text(item.lastName)
+                            )
+                        );
+                    });
+                }
+            });
+        });
+    </script>
+}
+
+<h2>This is the Xyz Index page.</h2>
+<br />
+
+<table data-toggle="table" class="table table-responsive table-hover table-bordered">
+    <thead>
+        <tr>
+            <th>Student ID</th>
+            <th>Student First Name</th>
+            <th>Student Last Name</th>
+        </tr>
+    </thead>
+
+    <tbody id="table-body">
+
+    </tbody>
+</table>
